@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe-Available-Input-Count", "Recipe-Available-Input-Count.csproj", "{877B1990-6A6C-420D-A33E-856ECB8C3CA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base-Mod", "..\Base-Mod\Base-Mod.csproj", "{64E1BBDA-D01C-4C32-B2ED-7052856B31E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{877B1990-6A6C-420D-A33E-856ECB8C3CA8}.Debug|x64.ActiveCfg = Debug|x64
+		{877B1990-6A6C-420D-A33E-856ECB8C3CA8}.Debug|x64.Build.0 = Debug|x64
+		{877B1990-6A6C-420D-A33E-856ECB8C3CA8}.Release|x64.ActiveCfg = Release|x64
+		{877B1990-6A6C-420D-A33E-856ECB8C3CA8}.Release|x64.Build.0 = Release|x64
+		{64E1BBDA-D01C-4C32-B2ED-7052856B31E5}.Debug|x64.ActiveCfg = Debug|x64
+		{64E1BBDA-D01C-4C32-B2ED-7052856B31E5}.Debug|x64.Build.0 = Debug|x64
+		{64E1BBDA-D01C-4C32-B2ED-7052856B31E5}.Release|x64.ActiveCfg = Release|x64
+		{64E1BBDA-D01C-4C32-B2ED-7052856B31E5}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07E7B66A-B40C-4D4C-84F2-4FD5707291D5}
+	EndGlobalSection
+EndGlobal
