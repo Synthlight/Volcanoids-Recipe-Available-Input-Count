@@ -46,21 +46,15 @@ namespace Recipe_Available_Input_Count.Patches {
         [HarmonyPostfix]
         public static void Postfix(ref FactoryStation __instance, ref Recipe recipe, ref RichTextWriter result, ref FactoryTexts ___m_texts, ref OnlineCargo ___m_cargo) {
             foreach (var inventoryItemData in recipe.Inputs) {
-                var inputAmount = (int) GetInputAmount_MethodInfo.Invoke(__instance, new object[] {(InventoryItem) inventoryItemData});
+                var inputAmount     = (int) GetInputAmount_MethodInfo.Invoke(__instance, new object[] {(InventoryItem) inventoryItemData});
+                var availableAmount = ___m_cargo.GetAmount(inventoryItemData.Item, inventoryItemData.Stats);
 
-                var num = ___m_cargo.GetAmount(inventoryItemData.Item, inventoryItemData.Stats);
-
-                if (inputAmount >= inventoryItemData.Amount) {
-                    result.CurrentStyle = "Text";
-                    result.Text.ConcatFormat(___m_texts.InputFormat.Text, inventoryItemData.Amount, inventoryItemData.Item.Name, null);
-                    result.Text.Append($" ({num}x Available)");
-                } else {
-                    result.CurrentStyle = "TextError";
-                    result.Text.ConcatFormat(___m_texts.InputFormat.Text, inventoryItemData.Amount, inventoryItemData.Item.Name, null);
-                    result.Text.Append($" ({num}x Available)");
-                    result.CurrentStyle = "Text";
-                    result.Text.ConcatFormat(___m_texts.InputAvailableFormat.Text, inputAmount);
-                }
+                // Show input amount needed.
+                result.CurrentStyle = inputAmount >= inventoryItemData.Amount ? "Text" : "TextError";
+                result.Text.ConcatFormat(___m_texts.InputFormat.Text, inventoryItemData.Amount, inventoryItemData.Item.Name);
+                // Show available amount.
+                result.CurrentStyle = "Text";
+                result.Text.ConcatFormat(___m_texts.InputAvailableFormat.Text, availableAmount);
 
                 result.Text.AppendLine();
             }
