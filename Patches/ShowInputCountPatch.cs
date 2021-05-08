@@ -40,13 +40,26 @@ namespace Recipe_Available_Input_Count.Patches {
             return typeof(FactoryStation).GetMethod("WriteInfoInputs", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
-        private static readonly MethodInfo GetInputAmount_MethodInfo = typeof(FactoryStation).GetMethod("GetInputAmount", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo GET_INPUT_AMOUNT_METHOD_INFO = typeof(FactoryStation).GetMethod("GetInputAmount", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        [UsedImplicitly]
+        [HarmonyPrefix]
+        public static void Prefix(ref Recipe recipe, ref RichTextWriter result, ref FactoryTexts ___m_texts, ref OnlineCargo ___m_cargo) {
+            var outputItem = recipe.Output;
+            var haveAmount = ___m_cargo.GetAmount(outputItem.Item, outputItem.Stats);
+
+            result.CurrentStyle = "Text";
+            result.Text.ConcatFormat(___m_texts.InputAvailableFormat.Text, haveAmount);
+
+            result.Text.AppendLine();
+            result.Text.AppendLine();
+        }
 
         [UsedImplicitly]
         [HarmonyPostfix]
         public static void Postfix(ref FactoryStation __instance, ref Recipe recipe, ref RichTextWriter result, ref FactoryTexts ___m_texts, ref OnlineCargo ___m_cargo) {
             foreach (var inventoryItemData in recipe.Inputs) {
-                var inputAmount     = (int) GetInputAmount_MethodInfo.Invoke(__instance, new object[] {(InventoryItem) inventoryItemData});
+                var inputAmount     = (int) GET_INPUT_AMOUNT_METHOD_INFO.Invoke(__instance, new object[] {inventoryItemData});
                 var availableAmount = ___m_cargo.GetAmount(inventoryItemData.Item, inventoryItemData.Stats);
 
                 // Show input amount needed.
