@@ -22,9 +22,10 @@ namespace Recipe_Available_Input_Count.Patches {
             var il = instructions.ToList();
 
             // base.WriteInfoInputs(recipe, result);
-            for (var i = 34; i <= 37; i++) {
-                il[i].opcode  = OpCodes.Nop;
-                il[i].operand = null;
+            for (var i = 0; i <= 3; i++) {
+                var index = il.Count - 2 - i;
+                il[index].opcode  = OpCodes.Nop;
+                il[index].operand = null;
             }
 
             return il;
@@ -45,6 +46,8 @@ namespace Recipe_Available_Input_Count.Patches {
         [UsedImplicitly]
         [HarmonyPrefix]
         public static void Prefix(ref Recipe recipe, ref RichTextWriter result, ref FactoryTexts ___m_texts, ref OnlineCargo ___m_cargo) {
+            if (!Plugin.showAmountOfCurrentItem) return;
+
             var outputItem = recipe.Output;
             var haveAmount = ___m_cargo.GetAmount(outputItem.Item, outputItem.Stats);
 
