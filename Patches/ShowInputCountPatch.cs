@@ -44,21 +44,6 @@ namespace Recipe_Available_Input_Count.Patches {
         private static readonly MethodInfo GET_INPUT_AMOUNT_METHOD_INFO = typeof(FactoryStation).GetMethod("GetInputAmount", BindingFlags.NonPublic | BindingFlags.Instance);
 
         [UsedImplicitly]
-        [HarmonyPrefix]
-        public static void Prefix(ref Recipe recipe, ref RichTextWriter result, ref FactoryTexts ___m_texts, ref OnlineCargo ___m_cargo) {
-            if (!Plugin.showAmountOfCurrentItem) return;
-
-            var outputItem = recipe.Output;
-            var haveAmount = ___m_cargo.GetAmount(outputItem.Item, outputItem.Stats);
-
-            result.CurrentStyle = "Text";
-            result.Text.ConcatFormat(___m_texts.InputAvailableFormat.Text, haveAmount);
-
-            result.Text.AppendLine();
-            result.Text.AppendLine();
-        }
-
-        [UsedImplicitly]
         [HarmonyPostfix]
         public static void Postfix(ref FactoryStation __instance, ref Recipe recipe, ref RichTextWriter result, ref FactoryTexts ___m_texts, ref OnlineCargo ___m_cargo) {
             foreach (var inventoryItemData in recipe.Inputs) {
