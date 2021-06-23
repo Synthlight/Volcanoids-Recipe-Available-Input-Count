@@ -22,10 +22,10 @@ namespace Recipe_Available_Input_Count.Patches {
             var il = instructions.ToList();
 
             // base.WriteInfoInputs(recipe, result);
-            for (var i = 0; i <= 3; i++) {
-                var index = il.Count - 2 - i;
-                il[index].opcode  = OpCodes.Nop;
-                il[index].operand = null;
+            var lastPop = il.LastIndexOf(new CodeInstruction(OpCodes.Pop));
+
+            for (var i = lastPop + 1; i < il.Count - 1; i++) { // -1 to skip the `ret`.
+                il[i] = new CodeInstruction(OpCodes.Nop);
             }
 
             return il;
