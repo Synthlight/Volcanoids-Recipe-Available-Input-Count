@@ -1,4 +1,7 @@
 {
     "LoadGroup": 0,
-    "Version": "1.2"
+    "Version": "1.2",
+    "UniqueModId": "Recipe-Available-Input-Count",
+    "Title": "Show Recipe Available Input Counts",
+    "MultiplayerMode": 2
 }
