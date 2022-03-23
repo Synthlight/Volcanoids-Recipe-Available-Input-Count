@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using Base_Mod;
 using HarmonyLib;
 using JetBrains.Annotations;
 
@@ -21,12 +22,9 @@ namespace Recipe_Available_Input_Count.Patches {
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
             var il = instructions.ToList();
 
-            // base.WriteInfoInputs(recipe, result);
+            // Remove the `base.WriteInfoInputs(recipe, result);` as we'll call it in our Postfix if needed.
             var lastPop = il.LastIndexOf(new CodeInstruction(OpCodes.Pop));
-
-            for (var i = lastPop + 1; i < il.Count - 1; i++) { // -1 to skip the `ret`.
-                il[i] = new CodeInstruction(OpCodes.Nop);
-            }
+            il.Nop(lastPop + 1, il.Count - 2); // -1 to skip the `ret`. (-2 because 1 based 'count'.)
 
             return il;
         }
